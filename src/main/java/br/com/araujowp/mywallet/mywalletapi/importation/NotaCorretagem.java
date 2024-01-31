@@ -16,14 +16,20 @@ public class NotaCorretagem {
 		PDDocument document = PDDocument.load(new File(nota));
 		PDFTextStripperByArea stripper = new PDFTextStripperByArea();
 				
+		stripper.addRegion("headerNote", ClearLayout.getHeaderArea());   
+		stripper.addRegion("client", ClearLayout.getClientArea() );
+
 		int maxPage = document.getNumberOfPages();
 		System.out.println("total de paginas: " + maxPage );
 		for (int pageNumber = 0; pageNumber < maxPage; pageNumber++) {
 			System.out.println("pagina: " + (pageNumber + 1) );
-			stripper.addRegion("customRegion", ClearLayout.getHeaderArea());   
+			
 			stripper.extractRegions(document.getPage(pageNumber));
-			String textFromArea = stripper.getTextForRegion("customRegion");
-			System.out.println(new HeadNote(textFromArea).toString());
+			
+			String headerNote = stripper.getTextForRegion("headerNote");
+			String strClient = stripper.getTextForRegion("client");
+			System.out.println(headerNote);
+			System.out.println(strClient.trim());
 		}
 		document.close();
 	}
