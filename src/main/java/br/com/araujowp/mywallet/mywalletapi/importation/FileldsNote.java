@@ -4,6 +4,9 @@ public enum FileldsNote {
 
 	NUMERO, 
 	DATA_PREGAO, 
-	CLIENTE
-	
+	CLIENTE, 
+	TAXA_LIQUIDACAO, 
+	TAXA_REGISTRO, 
+	EMOLUMENTOS, 
+	IRRF
 }

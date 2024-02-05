@@ -35,12 +35,20 @@ public class NotaCorretagem {
 			String numero = stripper.getTextForRegion(FileldsNote.NUMERO.name());
 			String dataPregao = stripper.getTextForRegion(FileldsNote.DATA_PREGAO.name());
 			String cliente = stripper.getTextForRegion(FileldsNote.CLIENTE.name());
+			String taxaLiquidacao = stripper.getTextForRegion(FileldsNote.TAXA_LIQUIDACAO.name());
+			String taxaRegistro  = stripper.getTextForRegion(FileldsNote.TAXA_REGISTRO.name());
+			String emolumentos  = stripper.getTextForRegion(FileldsNote.EMOLUMENTOS.name());
+			String irrf  = stripper.getTextForRegion(FileldsNote.IRRF.name());
 			
 			System.out.println("numero " + numero.trim());
-			System.out.println("dataPregao " + dataPregao.trim());
-//			System.out.println(dataPregao);
-//			System.out.println("cliente");
+//			System.out.println("dataPregao " + dataPregao.trim());
+//			System.out.println("taxaLiquidacao " + taxaLiquidacao.trim());
+			System.out.println("taxaRegistro " + taxaRegistro.trim());
+			System.out.println("EMOLUMENTOS " + emolumentos.trim());
+			System.out.println("IRRF " + irrf.trim());
 //			System.out.println(cliente);
+			
+			if(pageNumber >=  1 ) pageNumber = 6;
 		}
 		document.close();
 	}
