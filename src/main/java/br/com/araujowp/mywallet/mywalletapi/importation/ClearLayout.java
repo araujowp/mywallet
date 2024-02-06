@@ -6,18 +6,9 @@ import java.util.Map;
 
 public class ClearLayout {
 
-//	public static Rectangle2D getHeaderArea() {
-//		return new Rectangle2D.Double(410, 0, 150, 70);
-//	}
-//
-//	public static Rectangle2D getClientArea() {
-//		return new Rectangle2D.Double(000, 140, 60, 20);
-//	}
-	
-	
-	public static  Map<String, Rectangle2D> get(){
+	public static Map<String, Rectangle2D> get() {
 		Map<String, Rectangle2D> layout = new HashMap<>();
-		
+
 		layout.put(FileldsNote.NUMERO.name(), new Rectangle2D.Double(410, 60, 60, 30));
 		layout.put(FileldsNote.DATA_PREGAO.name(), new Rectangle2D.Double(500, 60, 60, 30));
 		layout.put(FileldsNote.CLIENTE.name(), new Rectangle2D.Double(000, 140, 60, 20));
@@ -25,10 +16,18 @@ public class ClearLayout {
 		layout.put(FileldsNote.TAXA_REGISTRO.name(), new Rectangle2D.Double(450, 495, 100, 5));
 		layout.put(FileldsNote.EMOLUMENTOS.name(), new Rectangle2D.Double(450, 540, 100, 5));
 		layout.put(FileldsNote.IRRF.name(), new Rectangle2D.Double(450, 610, 100, 5));
-		
+
 		return layout;
-	} 
-	
+	}
+
+	public static Map<String, Rectangle2D> getDetail() {
+		Map<String, Rectangle2D> detail = new HashMap<>();
+		
+		detail.put(FieldNoteDetail.OPERACAO.name(), new Rectangle2D.Double(90, 250, 10, 20));
+		detail.put(FieldNoteDetail.MERCADO.name(), new Rectangle2D.Double(100, 250, 60, 20));
+		detail.put(FieldNoteDetail.ESPECIFICACAO_TITULO.name(), new Rectangle2D.Double(160, 250, 130, 10));
+		
+		return detail;
+	}
+
 }
-
-
