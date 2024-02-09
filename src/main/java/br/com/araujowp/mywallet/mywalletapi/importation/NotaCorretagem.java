@@ -47,7 +47,11 @@ public class NotaCorretagem {
 			String operacao = stripper.getTextForRegion(FieldNoteDetail.OPERACAO.name());
 			String mercado = stripper.getTextForRegion(FieldNoteDetail.MERCADO.name());
 			String titulo = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name());
-			
+			String obs = stripper.getTextForRegion(FieldNoteDetail.OBS.name());
+			String quantidade = stripper.getTextForRegion(FieldNoteDetail.QUANTIDADE.name());
+			String preco = stripper.getTextForRegion(FieldNoteDetail.PRECO_AJUSTE.name());
+			String valor = stripper.getTextForRegion(FieldNoteDetail.VALOR_OPERACAO.name());
+			String opFinanceira = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name());
 			
 //			System.out.println("numero " + numero.trim());
 //			System.out.println("dataPregao " + dataPregao.trim());
@@ -58,9 +62,9 @@ public class NotaCorretagem {
 //			System.out.println(cliente);
 //			System.out.println("operacao " + operacao);
 //			System.out.println("mercado " + mercado.trim());
-			System.out.println("titulo " + titulo.trim());
+			System.out.println("titulo " + titulo.trim() + " opFinanceira " + opFinanceira.trim());
 			
-			if(pageNumber >=  1 ) pageNumber = 6;
+//			if(pageNumber >=  1 ) pageNumber = 6;
 		}
 		document.close();
 	}

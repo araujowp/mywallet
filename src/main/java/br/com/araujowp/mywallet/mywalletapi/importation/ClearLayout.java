@@ -26,6 +26,11 @@ public class ClearLayout {
 		detail.put(FieldNoteDetail.OPERACAO.name(), new Rectangle2D.Double(90, 250, 10, 20));
 		detail.put(FieldNoteDetail.MERCADO.name(), new Rectangle2D.Double(100, 250, 60, 20));
 		detail.put(FieldNoteDetail.ESPECIFICACAO_TITULO.name(), new Rectangle2D.Double(160, 250, 130, 10));
+		detail.put(FieldNoteDetail.OBS.name(), new Rectangle2D.Double(290, 250, 60, 10));
+		detail.put(FieldNoteDetail.QUANTIDADE.name(), new Rectangle2D.Double(350, 250, 60, 10));
+		detail.put(FieldNoteDetail.PRECO_AJUSTE.name(), new Rectangle2D.Double(410, 250, 60, 10));
+		detail.put(FieldNoteDetail.VALOR_OPERACAO.name(), new Rectangle2D.Double(470, 250, 70, 10));
+		detail.put(FieldNoteDetail.OPERACAO_FINANCEIRA.name(), new Rectangle2D.Double(541, 250, 50, 10));
 		
 		return detail;
 	}
