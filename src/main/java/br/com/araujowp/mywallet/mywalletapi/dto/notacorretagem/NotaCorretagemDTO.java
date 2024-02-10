@@ -1,6 +1,7 @@
-package br.com.araujowp.mywallet.mywalletapi.importation;
+package br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,8 @@ public class NotaCorretagemDTO {
 
 	String numero;
 	long cliente;
-	LocalDate data_pregao;
+	LocalDate dataInclusao;
+	LocalDate dataPregao;
 	String tipoOperacao;
 	float taxaLiquidacao;
 	float taxaRegistro;
@@ -27,5 +29,5 @@ public class NotaCorretagemDTO {
 	float IRRF;
 	float outros;
 	String nomeArquivo;
-
+	List<NotaCorretagemDTODet> detail;
 }
