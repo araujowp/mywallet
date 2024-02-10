@@ -4,6 +4,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -18,21 +19,22 @@ public class NotaCorretagem {
 		PDDocument document = PDDocument.load(new File(nota));
 		PDFTextStripperByArea stripper = new PDFTextStripperByArea();
 				
-//		stripper.addRegion("headerNote", ClearLayout.getHeaderArea());   
-//		stripper.addRegion("client", ClearLayout.getClientArea() );
-
 		for (Map.Entry<String, Rectangle2D> entry: ClearLayout.get().entrySet()) {
 			stripper.addRegion(entry.getKey(), entry.getValue());
 		}
 
-		for (Map.Entry<String, Rectangle2D> entry: ClearLayout.getDetail().entrySet()) {
-			stripper.addRegion(entry.getKey(), entry.getValue());
+		for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: ClearLayout.getDetails().entrySet()) {
+
+			Map<String, Rectangle2D> entryRow = entryDetail.getValue();
+			
+			for (Map.Entry<String, Rectangle2D> entryField : entryRow.entrySet()) {
+				stripper.addRegion(entryField.getKey(), entryField.getValue());
+			}
 		}
 		
 		int maxPage = document.getNumberOfPages();
 		System.out.println("total de paginas: " + maxPage );
 		for (int pageNumber = 0; pageNumber < maxPage; pageNumber++) {
-//			System.out.println("pagina: " + (pageNumber + 1) );
 			
 			stripper.extractRegions(document.getPage(pageNumber));
 			
@@ -44,14 +46,30 @@ public class NotaCorretagem {
 			String emolumentos  = stripper.getTextForRegion(FileldsNote.EMOLUMENTOS.name());
 			String irrf  = stripper.getTextForRegion(FileldsNote.IRRF.name());
 
-			String operacao = stripper.getTextForRegion(FieldNoteDetail.OPERACAO.name());
-			String mercado = stripper.getTextForRegion(FieldNoteDetail.MERCADO.name());
-			String titulo = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name());
-			String obs = stripper.getTextForRegion(FieldNoteDetail.OBS.name());
-			String quantidade = stripper.getTextForRegion(FieldNoteDetail.QUANTIDADE.name());
-			String preco = stripper.getTextForRegion(FieldNoteDetail.PRECO_AJUSTE.name());
-			String valor = stripper.getTextForRegion(FieldNoteDetail.VALOR_OPERACAO.name());
-			String opFinanceira = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name());
+//			String operacao = stripper.getTextForRegion(FieldNoteDetail.OPERACAO.name());
+//			String mercado = stripper.getTextForRegion(FieldNoteDetail.MERCADO.name());
+//			String titulo = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name());
+//			String obs = stripper.getTextForRegion(FieldNoteDetail.OBS.name());
+//			String quantidade = stripper.getTextForRegion(FieldNoteDetail.QUANTIDADE.name());
+//			String preco = stripper.getTextForRegion(FieldNoteDetail.PRECO_AJUSTE.name());
+//			String valor = stripper.getTextForRegion(FieldNoteDetail.VALOR_OPERACAO.name());
+			
+//			int line = 0;
+//			for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: ClearLayout.getDetails().entrySet()) {
+//			
+//				Map<String, Rectangle2D> entryRow = entryDetail.getValue();
+//				
+//				for (Map.Entry<String, Rectangle2D> entryField : entryRow.entrySet()) {
+//					stripper.addRegion(entryField.getKey(), entryField.getValue());
+//				}
+//			}
+			
+			
+			String titulo0 = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name() + "0");
+			String titulo1 = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name() + "1");
+			
+			String opFinanceira0 = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name() + "0");
+			String opFinanceira1 = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name() + "1");
 			
 //			System.out.println("numero " + numero.trim());
 //			System.out.println("dataPregao " + dataPregao.trim());
@@ -62,7 +80,8 @@ public class NotaCorretagem {
 //			System.out.println(cliente);
 //			System.out.println("operacao " + operacao);
 //			System.out.println("mercado " + mercado.trim());
-			System.out.println("titulo " + titulo.trim() + " opFinanceira " + opFinanceira.trim());
+			System.out.println("titulo0 " + titulo0.trim() + " opFinanceira " + opFinanceira0.trim());
+			System.out.println("titulo1 " + titulo1.trim() + " opFinanceira " + opFinanceira1.trim());
 			
 //			if(pageNumber >=  1 ) pageNumber = 6;
 		}

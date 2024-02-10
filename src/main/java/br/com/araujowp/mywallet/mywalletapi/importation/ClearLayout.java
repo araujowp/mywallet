@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class ClearLayout {
 
+	private static int countLine = 2;
+	
 	public static Map<String, Rectangle2D> get() {
 		Map<String, Rectangle2D> layout = new HashMap<>();
 
@@ -20,19 +22,41 @@ public class ClearLayout {
 		return layout;
 	}
 
-	public static Map<String, Rectangle2D> getDetail() {
+	public static Map<String, Rectangle2D> getRow(int rowNumber) {
+
 		Map<String, Rectangle2D> detail = new HashMap<>();
 		
-		detail.put(FieldNoteDetail.OPERACAO.name(), new Rectangle2D.Double(90, 250, 10, 20));
-		detail.put(FieldNoteDetail.MERCADO.name(), new Rectangle2D.Double(100, 250, 60, 20));
-		detail.put(FieldNoteDetail.ESPECIFICACAO_TITULO.name(), new Rectangle2D.Double(160, 250, 130, 10));
-		detail.put(FieldNoteDetail.OBS.name(), new Rectangle2D.Double(290, 250, 60, 10));
-		detail.put(FieldNoteDetail.QUANTIDADE.name(), new Rectangle2D.Double(350, 250, 60, 10));
-		detail.put(FieldNoteDetail.PRECO_AJUSTE.name(), new Rectangle2D.Double(410, 250, 60, 10));
-		detail.put(FieldNoteDetail.VALOR_OPERACAO.name(), new Rectangle2D.Double(470, 250, 70, 10));
-		detail.put(FieldNoteDetail.OPERACAO_FINANCEIRA.name(), new Rectangle2D.Double(541, 250, 50, 10));
+		double y = 250 + (10 * rowNumber);
+		
+		detail.put(getName(FieldNoteDetail.OPERACAO, rowNumber), new Rectangle2D.Double(90, y, 10, 20));
+		detail.put(getName(FieldNoteDetail.MERCADO, rowNumber), new Rectangle2D.Double(100, y, 60, 20));
+		detail.put(getName(FieldNoteDetail.ESPECIFICACAO_TITULO, rowNumber), new Rectangle2D.Double(160, y, 130, 10));
+		detail.put(getName(FieldNoteDetail.OBS, rowNumber), new Rectangle2D.Double(290, y, 60, 10));
+		detail.put(getName(FieldNoteDetail.QUANTIDADE, rowNumber), new Rectangle2D.Double(350, y, 60, 10));
+		detail.put(getName(FieldNoteDetail.PRECO_AJUSTE, rowNumber), new Rectangle2D.Double(410, y, 60, 10));
+		detail.put(getName(FieldNoteDetail.VALOR_OPERACAO, rowNumber), new Rectangle2D.Double(470, y, 70, 10));
+		detail.put(getName(FieldNoteDetail.OPERACAO_FINANCEIRA, rowNumber), new Rectangle2D.Double(541, y, 50, 10));
 		
 		return detail;
+	}
+	
+	public static Map<Integer, Map<String, Rectangle2D>> getDetails() {
+		Map<Integer, Map<String, Rectangle2D>> details = new HashMap<>();
+		
+		for(int rowNumber = 0; rowNumber < getCountLine() ; rowNumber++ ) {
+			details.put(rowNumber, getRow(rowNumber));
+		}
+		
+		return details;
+	}
+	
+	private static String getName(FieldNoteDetail field, int row ) {
+		return field.name() + row; 
+	}
+	
+	
+	public static int getCountLine() {
+		return countLine;
 	}
 
 }
