@@ -13,6 +13,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
+import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTODet;
 
 public class NotaCorretagem {
 
@@ -48,12 +49,12 @@ public class NotaCorretagem {
 			LocalDate dataPregao;
 			dataPregao = UtilDate.getLocalDate(stripper.getTextForRegion(FileldsNote.DATA_PREGAO.name()));
 			
-			long cliente = Long.valueOf(stripper.getTextForRegion(FileldsNote.CLIENTE.name()));
+			long cliente = Long.valueOf(stripper.getTextForRegion(FileldsNote.CLIENTE.name()).trim());
 			
-			float taxaLiquidacao = Float.valueOf(stripper.getTextForRegion(FileldsNote.TAXA_LIQUIDACAO.name()));
-			float taxaRegistro  = Float.valueOf(stripper.getTextForRegion(FileldsNote.TAXA_REGISTRO.name()));
-			float emolumentos =Float.valueOf(stripper.getTextForRegion(FileldsNote.EMOLUMENTOS.name()));
-			float irrf = Float.valueOf(stripper.getTextForRegion(FileldsNote.IRRF.name()));
+			float taxaLiquidacao = getFloat(stripper, FileldsNote.TAXA_LIQUIDACAO);
+			float taxaRegistro  = getFloat(stripper, FileldsNote.TAXA_REGISTRO);
+			float emolumentos = getFloat(stripper, FileldsNote.EMOLUMENTOS);
+			float irrf = getFloat(stripper, FileldsNote.IRRF);
 			
 			NotaCorretagemDTO notaDTO = NotaCorretagemDTO.builder()
 					.numero(stripper.getTextForRegion(FileldsNote.NUMERO.name()).trim())
@@ -66,55 +67,57 @@ public class NotaCorretagem {
 					.IRRF(irrf)
 					.build();
 			
-//			String numero = stripper.getTextForRegion(FileldsNote.NUMERO.name());
-//			String dataPregao = stripper.getTextForRegion(FileldsNote.DATA_PREGAO.name());
-//			String cliente = stripper.getTextForRegion(FileldsNote.CLIENTE.name());
-//			String taxaLiquidacao = stripper.getTextForRegion(FileldsNote.TAXA_LIQUIDACAO.name());
-//			String taxaRegistro  = stripper.getTextForRegion(FileldsNote.TAXA_REGISTRO.name());
-//			String emolumentos  = stripper.getTextForRegion(FileldsNote.EMOLUMENTOS.name());
-//			String irrf  = stripper.getTextForRegion(FileldsNote.IRRF.name());
-
-//			String operacao = stripper.getTextForRegion(FieldNoteDetail.OPERACAO.name());
-//			String mercado = stripper.getTextForRegion(FieldNoteDetail.MERCADO.name());
-//			String titulo = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name());
-//			String obs = stripper.getTextForRegion(FieldNoteDetail.OBS.name());
-//			String quantidade = stripper.getTextForRegion(FieldNoteDetail.QUANTIDADE.name());
-//			String preco = stripper.getTextForRegion(FieldNoteDetail.PRECO_AJUSTE.name());
-//			String valor = stripper.getTextForRegion(FieldNoteDetail.VALOR_OPERACAO.name());
+			int line = 0;
+			for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: ClearLayout.getDetails().entrySet()) {
 			
-//			int line = 0;
-//			for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: ClearLayout.getDetails().entrySet()) {
-//			
-//				Map<String, Rectangle2D> entryRow = entryDetail.getValue();
-//				
-//				for (Map.Entry<String, Rectangle2D> entryField : entryRow.entrySet()) {
-//					stripper.addRegion(entryField.getKey(), entryField.getValue());
-//				}
-//			}
+				Map<String, Rectangle2D> entryRow = entryDetail.getValue();
+				
+				
+				NotaCorretagemDTODet det = NotaCorretagemDTODet.builder()
+						.operacao(getString(stripper,FieldNoteDetail.OPERACAO, line))
+						.mercado(getString(stripper,FieldNoteDetail.MERCADO, line))
+//						.prazo(getString(stripper,FieldNoteDetail.PRAZO, line))
+						.especificacaoTitulo(getString(stripper,FieldNoteDetail.ESPECIFICACAO_TITULO, line))
+						.obs(getString(stripper,FieldNoteDetail.OBS, line))
+						.quantidade(getDouble(stripper,FieldNoteDetail.QUANTIDADE, line))
+						.precoAjuste(getDouble(stripper,FieldNoteDetail.PRECO_AJUSTE, line))
+						.valorOperacao(getDouble(stripper,FieldNoteDetail.VALOR_OPERACAO, line))
+						.build();
+				
+				notaDTO.addDetail(det);
+				line++;
+			}
 			
+			System.out.println(notaDTO.toCSV());
 			
-//			String titulo0 = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name() + "0");
-//			String titulo1 = stripper.getTextForRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name() + "1");
-			
-//			String opFinanceira0 = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name() + "0");
-//			String opFinanceira1 = stripper.getTextForRegion(FieldNoteDetail.OPERACAO_FINANCEIRA.name() + "1");
-			
-//			System.out.println("numero " + numero.trim());
-//			System.out.println("dataPregao " + dataPregao.trim());
-//			System.out.println("taxaLiquidacao " + taxaLiquidacao.trim());
-//			System.out.println("taxaRegistro " + taxaRegistro.trim());
-//			System.out.println("EMOLUMENTOS " + emolumentos.trim());
-//			System.out.println("IRRF " + irrf.trim());
-//			System.out.println(cliente);
-//			System.out.println("operacao " + operacao);
-//			System.out.println("mercado " + mercado.trim());
-//			System.out.println("titulo0 " + titulo0.trim() + " opFinanceira " + opFinanceira0.trim());
-//			System.out.println("titulo1 " + titulo1.trim() + " opFinanceira " + opFinanceira1.trim());
 			
 			notas.add(notaDTO);
 //			if(pageNumber >=  1 ) pageNumber = 6;
 		}
 		document.close();
+	}
+
+	private static double getDouble(PDFTextStripperByArea stripper, FieldNoteDetail field, int line) {
+		return getDouble(stripper, field.name() + line);
+	}
+
+	private static double getDouble(PDFTextStripperByArea stripper, String region) {
+		String aux  = stripper.getTextForRegion(region).trim() ; 
+		aux = aux.replace(".", "").replace(",", ".");
+		return Double.valueOf(aux);
+	}
+
+	private static String getString(PDFTextStripperByArea stripper, FieldNoteDetail field, int rowNumber) {
+		return getString(stripper, field.name() + rowNumber);
+	}
+	private static String getString(PDFTextStripperByArea stripper, String region) {
+		return stripper.getTextForRegion(region).trim();
+	}
+
+	private static float getFloat(PDFTextStripperByArea stripper, FileldsNote field) {
+		String aux = stripper.getTextForRegion(field.name());
+		aux = aux.replaceAll(",", ".");
+		return Float.valueOf(aux.trim());
 	}
 	
 }

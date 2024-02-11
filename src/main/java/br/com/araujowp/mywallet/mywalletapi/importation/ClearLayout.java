@@ -13,7 +13,7 @@ public class ClearLayout {
 
 		layout.put(FileldsNote.NUMERO.name(), new Rectangle2D.Double(410, 60, 60, 30));
 		layout.put(FileldsNote.DATA_PREGAO.name(), new Rectangle2D.Double(500, 60, 60, 30));
-		layout.put(FileldsNote.CLIENTE.name(), new Rectangle2D.Double(000, 140, 60, 20));
+		layout.put(FileldsNote.CLIENTE.name(), new Rectangle2D.Double(000, 150, 60, 10));
 		layout.put(FileldsNote.TAXA_LIQUIDACAO.name(), new Rectangle2D.Double(450, 480, 100, 15));
 		layout.put(FileldsNote.TAXA_REGISTRO.name(), new Rectangle2D.Double(450, 495, 100, 5));
 		layout.put(FileldsNote.EMOLUMENTOS.name(), new Rectangle2D.Double(450, 540, 100, 5));

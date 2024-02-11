@@ -7,7 +7,7 @@ public class UtilDate {
 
 	public static LocalDate getLocalDate(String date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		return LocalDate.parse(date, formatter);
+		return LocalDate.parse(date.trim(), formatter);
 	}
 	
 }
