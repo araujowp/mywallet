@@ -43,6 +43,16 @@ public class NotaCorretagemDTO {
 
         csvBuilder.append("Numero").append(";");
         csvBuilder.append("Data Pregão").append(";");
+        
+        csvBuilder.append("Operação").append(";");
+        csvBuilder.append("Mercado").append(";");
+        csvBuilder.append("Especificação Titulo").append(";");
+        csvBuilder.append("Obs").append(";");
+        csvBuilder.append("Quantidade").append(";");
+        csvBuilder.append("Preço Ajuste").append(";");
+        csvBuilder.append("Valor operação").append(";");
+        csvBuilder.append("Operação Financeira").append(";");
+        
         csvBuilder.append("Taxa Liquidacao").append(";");
         csvBuilder.append("Taxa Registro").append(";");
         csvBuilder.append("Taxa Termo Opções").append(";");
@@ -57,6 +67,16 @@ public class NotaCorretagemDTO {
         	
         	csvBuilder.append(numero).append(";");
         	csvBuilder.append(dataPregao).append(";");
+
+        	csvBuilder.append(detail.getOperacao()).append(";");
+        	csvBuilder.append(detail.getMercado()).append(";");
+        	csvBuilder.append(detail.getEspecificacaoTitulo()).append(";");
+        	csvBuilder.append(detail.getObs()).append(";");
+        	csvBuilder.append(detail.getQuantidade()).append(";");
+        	csvBuilder.append(detail.getPrecoAjuste()).append(";");
+        	csvBuilder.append(detail.getValorOperacao()).append(";");
+        	csvBuilder.append(detail.getOperacaoFinanceira()).append(";");
+        	
         	csvBuilder.append(taxaLiquidacao).append(";");
         	csvBuilder.append(taxaRegistro).append(";");
         	csvBuilder.append(taxaTermoOpcoes).append(";");
@@ -66,7 +86,6 @@ public class NotaCorretagemDTO {
         	csvBuilder.append(taxaCustodia).append(";");
         	csvBuilder.append(impostos).append(";");
         	csvBuilder.append(IRRF).append("\n");
-        	
         }
 
         return csvBuilder.toString();

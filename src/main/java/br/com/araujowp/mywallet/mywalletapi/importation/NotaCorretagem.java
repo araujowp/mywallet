@@ -41,7 +41,7 @@ public class NotaCorretagem {
 		List<NotaCorretagemDTO> notas = new ArrayList<>();
 		
 		int maxPage = document.getNumberOfPages();
-		for (int pageNumber = 4; pageNumber < maxPage; pageNumber++) {
+		for (int pageNumber = 0; pageNumber < maxPage; pageNumber++) {
 			
 			stripper.extractRegions(document.getPage(pageNumber));
 			
