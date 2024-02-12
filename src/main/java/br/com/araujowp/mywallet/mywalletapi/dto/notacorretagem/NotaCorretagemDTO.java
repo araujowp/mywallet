@@ -29,27 +29,45 @@ public class NotaCorretagemDTO {
 	float IRRF;
 	float outros;
 	String nomeArquivo;
-	List<NotaCorretagemDTODet> detail = new ArrayList<>();
+	List<NotaCorretagemDTODet> details = new ArrayList<>();
 
 	public void addDetail(NotaCorretagemDTODet itemDet) {
 		
-		detail = detail == null ? new ArrayList<>() : detail;
-		detail.add(itemDet);
+		details = details == null ? new ArrayList<>() : details;
+		details.add(itemDet);
 	}
 	 
     public String toCSV() {
+    	
         StringBuilder csvBuilder = new StringBuilder();
-        csvBuilder.append(numero).append(",");
-        csvBuilder.append(dataPregao).append(",");
-        csvBuilder.append(taxaLiquidacao).append(",");
-        csvBuilder.append(taxaRegistro).append(",");
-        csvBuilder.append(taxaTermoOpcoes).append(",");
-        csvBuilder.append(emolumentos).append(",");
-        csvBuilder.append(taxaOperacional).append(",");
-        csvBuilder.append(execucao).append(",");
-        csvBuilder.append(taxaCustodia).append(",");
-        csvBuilder.append(impostos).append(",");
-        csvBuilder.append(IRRF).append("\n");
+
+        csvBuilder.append("Numero").append(";");
+        csvBuilder.append("Data Pregão").append(";");
+        csvBuilder.append("Taxa Liquidacao").append(";");
+        csvBuilder.append("Taxa Registro").append(";");
+        csvBuilder.append("Taxa Termo Opções").append(";");
+        csvBuilder.append("Emolumentos").append(";");
+        csvBuilder.append("Taxa Operacional").append(";");
+        csvBuilder.append("Execução").append(";");
+        csvBuilder.append("Taxa Custodia").append(";");
+        csvBuilder.append("Impostos").append(";");
+        csvBuilder.append("IRRF").append("\n");
+        
+        for(NotaCorretagemDTODet detail : details) {
+        	
+        	csvBuilder.append(numero).append(";");
+        	csvBuilder.append(dataPregao).append(";");
+        	csvBuilder.append(taxaLiquidacao).append(";");
+        	csvBuilder.append(taxaRegistro).append(";");
+        	csvBuilder.append(taxaTermoOpcoes).append(";");
+        	csvBuilder.append(emolumentos).append(";");
+        	csvBuilder.append(taxaOperacional).append(";");
+        	csvBuilder.append(execucao).append(";");
+        	csvBuilder.append(taxaCustodia).append(";");
+        	csvBuilder.append(impostos).append(";");
+        	csvBuilder.append(IRRF).append("\n");
+        	
+        }
 
         return csvBuilder.toString();
     }

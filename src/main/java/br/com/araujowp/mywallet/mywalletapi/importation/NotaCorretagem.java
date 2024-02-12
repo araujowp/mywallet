@@ -41,9 +41,11 @@ public class NotaCorretagem {
 		List<NotaCorretagemDTO> notas = new ArrayList<>();
 		
 		int maxPage = document.getNumberOfPages();
-		for (int pageNumber = 0; pageNumber < maxPage; pageNumber++) {
+		for (int pageNumber = 4; pageNumber < maxPage; pageNumber++) {
 			
 			stripper.extractRegions(document.getPage(pageNumber));
+			
+			String numero = getString(stripper, FileldsNote.NUMERO.name());
 			
 			LocalDate dataPregao;
 			dataPregao = UtilDate.getLocalDate(stripper.getTextForRegion(FileldsNote.DATA_PREGAO.name()));
@@ -56,7 +58,7 @@ public class NotaCorretagem {
 			float irrf = getFloat(stripper, FileldsNote.IRRF);
 			
 			NotaCorretagemDTO notaDTO = NotaCorretagemDTO.builder()
-					.numero(stripper.getTextForRegion(FileldsNote.NUMERO.name()).trim())
+					.numero(numero)
 					.dataPregao(dataPregao)
 					.dataInclusao(LocalDate.now())
 					.cliente(cliente)
@@ -66,13 +68,9 @@ public class NotaCorretagem {
 					.IRRF(irrf)
 					.build();
 			
-			int line = 0;
-			for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: ClearLayout.getDetails().entrySet()) {
-			
-				Map<String, Rectangle2D> entryRow = entryDetail.getValue();
+			for (int line = 0; line <ClearLayout.getCountLine(); line++) {
 				
 				String operacao = getString(stripper,FieldNoteDetail.OPERACAO, line);
-				
 				if (operacao.isBlank()) {
 					break;
 				}
@@ -89,12 +87,9 @@ public class NotaCorretagem {
 						.build();
 				
 				notaDTO.addDetail(det);
-				line++;
 			}
 			
 			System.out.println(notaDTO.toCSV());
-			
-			
 			notas.add(notaDTO);
 		}
 		document.close();
@@ -107,6 +102,7 @@ public class NotaCorretagem {
 	private static double getDouble(PDFTextStripperByArea stripper, String region) {
 		String aux  = stripper.getTextForRegion(region).trim() ; 
 		aux = aux.replace(".", "").replace(",", ".");
+		aux = aux.replace("\n", "").replace("\r", "");
 		return Double.valueOf(aux);
 	}
 
@@ -116,7 +112,9 @@ public class NotaCorretagem {
 	
 	private static String getString(PDFTextStripperByArea stripper, String region) {
 		try {
-			return stripper.getTextForRegion(region).trim();
+			String aux = stripper.getTextForRegion(region).trim();
+			aux = aux.replace(".", "").replace(",", ".");
+			return aux;
 		}catch(Exception e ) {
 			return "";
 		}
