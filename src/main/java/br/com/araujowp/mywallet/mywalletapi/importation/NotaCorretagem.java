@@ -41,7 +41,6 @@ public class NotaCorretagem {
 		List<NotaCorretagemDTO> notas = new ArrayList<>();
 		
 		int maxPage = document.getNumberOfPages();
-		System.out.println("total de paginas: " + maxPage );
 		for (int pageNumber = 0; pageNumber < maxPage; pageNumber++) {
 			
 			stripper.extractRegions(document.getPage(pageNumber));
@@ -81,7 +80,7 @@ public class NotaCorretagem {
 				NotaCorretagemDTODet det = NotaCorretagemDTODet.builder()
 						.operacao(operacao)
 						.mercado(getString(stripper,FieldNoteDetail.MERCADO, line))
-//						.prazo(getString(stripper,FieldNoteDetail.PRAZO, line))
+						.prazo(getString(stripper,FieldNoteDetail.PRAZO, line))
 						.especificacaoTitulo(getString(stripper,FieldNoteDetail.ESPECIFICACAO_TITULO, line))
 						.obs(getString(stripper,FieldNoteDetail.OBS, line))
 						.quantidade(getDouble(stripper,FieldNoteDetail.QUANTIDADE, line))
@@ -97,7 +96,6 @@ public class NotaCorretagem {
 			
 			
 			notas.add(notaDTO);
-//			if(pageNumber >=  1 ) pageNumber = 6;
 		}
 		document.close();
 	}
@@ -115,8 +113,13 @@ public class NotaCorretagem {
 	private static String getString(PDFTextStripperByArea stripper, FieldNoteDetail field, int rowNumber) {
 		return getString(stripper, field.name() + rowNumber);
 	}
+	
 	private static String getString(PDFTextStripperByArea stripper, String region) {
-		return stripper.getTextForRegion(region).trim();
+		try {
+			return stripper.getTextForRegion(region).trim();
+		}catch(Exception e ) {
+			return "";
+		}
 	}
 
 	private static float getFloat(PDFTextStripperByArea stripper, FileldsNote field) {

@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ClearLayout {
 
-	private static int countLine = 2;
+	private static int countLine = 19;
 	
 	public static Map<String, Rectangle2D> get() {
 		Map<String, Rectangle2D> layout = new HashMap<>();
