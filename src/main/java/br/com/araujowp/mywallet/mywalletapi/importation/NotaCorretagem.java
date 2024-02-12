@@ -72,9 +72,14 @@ public class NotaCorretagem {
 			
 				Map<String, Rectangle2D> entryRow = entryDetail.getValue();
 				
+				String operacao = getString(stripper,FieldNoteDetail.OPERACAO, line);
+				
+				if (operacao.isBlank()) {
+					break;
+				}
 				
 				NotaCorretagemDTODet det = NotaCorretagemDTODet.builder()
-						.operacao(getString(stripper,FieldNoteDetail.OPERACAO, line))
+						.operacao(operacao)
 						.mercado(getString(stripper,FieldNoteDetail.MERCADO, line))
 //						.prazo(getString(stripper,FieldNoteDetail.PRAZO, line))
 						.especificacaoTitulo(getString(stripper,FieldNoteDetail.ESPECIFICACAO_TITULO, line))
