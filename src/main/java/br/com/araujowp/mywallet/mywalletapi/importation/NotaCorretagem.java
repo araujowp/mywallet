@@ -89,10 +89,14 @@ public class NotaCorretagem {
 				notaDTO.addDetail(det);
 			}
 			
-			System.out.println(notaDTO.toCSV());
 			notas.add(notaDTO);
 		}
+		
 		document.close();
+		
+		ParseToCSV parse = new ParseToCSV(notas);
+		
+		System.out.println(parse.get());
 	}
 
 	private static double getDouble(PDFTextStripperByArea stripper, FieldNoteDetail field, int line) {
