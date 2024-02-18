@@ -7,13 +7,34 @@ import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO
 
 public class ParseToCSV {
 
-	private List<NotaCorretagemDTO> notes;
-
-	public ParseToCSV(List<NotaCorretagemDTO> notes) {
-		this.notes = notes;
+	
+	public String parseMovimentations(List<Movimentation> movimentations) {
+		
+		StringBuilder csvBuilder = new StringBuilder();
+		
+		csvBuilder.append("Numero").append(";");
+		csvBuilder.append("Operacao").append(";");
+		csvBuilder.append("Especificação Titulo").append(";");
+		csvBuilder.append("Quantidade").append(";");
+        csvBuilder.append("Preço Ajuste").append(";");
+        csvBuilder.append("Valor operação").append(";");
+        csvBuilder.append("Total taxas").append("\n");
+        
+        for(Movimentation movimentation : movimentations) {
+        	
+        	csvBuilder.append(movimentation.getNumero()).append(";");
+        	csvBuilder.append(movimentation.getOperacao()).append(";");
+        	csvBuilder.append(movimentation.getEspecificacaoTitulo()).append(";");
+        	csvBuilder.append(movimentation.getQuantidade()).append(";");
+        	csvBuilder.append(movimentation.getPrecoAjuste()).append(";");
+        	csvBuilder.append(movimentation.getValorOperacao()).append(";");
+        	csvBuilder.append(movimentation.getTotalTaxas()).append("\n");
+        }
+        
+		return csvBuilder.toString();
 	}
 	
-	public String get() {
+	public String parseNotes(List<NotaCorretagemDTO> notes) {
 		
         StringBuilder csvBuilder = new StringBuilder();
 
