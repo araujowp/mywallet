@@ -1,14 +1,40 @@
 package br.com.araujowp.mywallet.mywalletapi.importation;
 
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 public class ClearLayout {
 
-	private static int countLine = 19;
+	private int countLine = 19;
+	PDFTextStripperByArea stripper;
 	
-	public static Map<String, Rectangle2D> get() {
+	public ClearLayout() throws IOException {
+		stripper = new PDFTextStripperByArea();
+		mapFields();
+	}
+	
+	private void mapFields() {
+		
+		for (Map.Entry<String, Rectangle2D> entry: getNote().entrySet()) {
+			stripper.addRegion(entry.getKey(), entry.getValue());
+		}
+
+		for (Entry<Integer, Map<String, Rectangle2D>> entryDetail: getDetails().entrySet()) {
+
+			Map<String, Rectangle2D> entryRow = entryDetail.getValue();
+			
+			for (Map.Entry<String, Rectangle2D> entryField : entryRow.entrySet()) {
+				stripper.addRegion(entryField.getKey(), entryField.getValue());
+			}
+		}
+	}
+	
+	private Map<String, Rectangle2D> getNote() {
 		Map<String, Rectangle2D> layout = new HashMap<>();
 
 		layout.put(FileldsNote.NUMERO.name(), new Rectangle2D.Double(410, 60, 60, 30));
@@ -22,7 +48,7 @@ public class ClearLayout {
 		return layout;
 	}
 
-	public static Map<String, Rectangle2D> getRow(int rowNumber) {
+	private Map<String, Rectangle2D> getRow(int rowNumber) {
 
 		Map<String, Rectangle2D> detail = new HashMap<>();
 		
@@ -40,7 +66,12 @@ public class ClearLayout {
 		return detail;
 	}
 	
-	public static Map<Integer, Map<String, Rectangle2D>> getDetails() {
+	public PDFTextStripperByArea getStripper() {
+		return stripper;
+	}
+	
+	
+	private Map<Integer, Map<String, Rectangle2D>> getDetails() {
 		Map<Integer, Map<String, Rectangle2D>> details = new HashMap<>();
 		
 		for(int rowNumber = 0; rowNumber < getCountLine() ; rowNumber++ ) {
@@ -50,12 +81,12 @@ public class ClearLayout {
 		return details;
 	}
 	
-	private static String getName(FieldNoteDetail field, int row ) {
+	private String getName(FieldNoteDetail field, int row ) {
 		return field.name() + row; 
 	}
 	
 	
-	public static int getCountLine() {
+	public int getCountLine() {
 		return countLine;
 	}
 

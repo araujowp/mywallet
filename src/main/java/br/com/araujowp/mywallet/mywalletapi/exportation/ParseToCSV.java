@@ -1,4 +1,4 @@
-package br.com.araujowp.mywallet.mywalletapi.importation;
+package br.com.araujowp.mywallet.mywalletapi.exportation;
 
 import java.util.List;
 
