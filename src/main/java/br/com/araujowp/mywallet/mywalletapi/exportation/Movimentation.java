@@ -20,6 +20,7 @@ public class Movimentation {
 	private double valorOperacao;
 	private String operacaoFinanceira;
 	private double totalTaxas;
+	private double precoMedio;
 	
 	
 }

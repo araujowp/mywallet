@@ -25,6 +25,7 @@ public class CalculatedOperation {
 			double totalTaxasNote = note.getTaxaLiquidacao() + note.getEmolumentos();
 			double relativeWeight = Math.abs(det.getPrecoAjuste()) / totalNote;
 			double totalTaxas = relativeWeight * totalTaxasNote;
+			double precoMedio = 0;
 			
 			Movimentation movimentation = Movimentation.builder()
 					.numero(note.getNumero())
@@ -38,6 +39,7 @@ public class CalculatedOperation {
 					.valorOperacao(det.getValorOperacao())
 					.operacaoFinanceira(det.getOperacaoFinanceira())
 					.totalTaxas(totalTaxas)
+					.precoMedio(precoMedio)
 					.build();
 			
 			movimentations.add(movimentation);

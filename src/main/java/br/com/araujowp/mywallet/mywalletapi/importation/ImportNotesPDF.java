@@ -23,9 +23,9 @@ public class ImportNotesPDF {
 		
 		document.close();
 		
-		ParseToCSV parse = new ParseToCSV(notas);
+		ParseToCSV parse = new ParseToCSV();
 		
-		System.out.println(parse.get());
+		System.out.println(parse.parseNotes(notas));
 	}
 
 
