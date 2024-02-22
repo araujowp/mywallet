@@ -5,38 +5,39 @@ import java.util.Map;
 
 public class AveragePrice {
 
-	private record Active(double amount, double value) {}
-	private Map<String, Active> stock = new HashMap<>();
+	private record StockItem(double amount, double value) {}
+	private Map<String, StockItem> stock = new HashMap<>();
 	
-	public double calculate(String operation, String ticker, double amount, double value) {
+	public void addMovimentation(TradeType type, String ticker, double amount, double value) {
 		
 		if(stock.containsKey(ticker)) {
 			
-			Active positionStock = stock.get(ticker);
+			StockItem stockItem = stock.get(ticker);
 			
-			if(operation.equals("C")) {
-				stock.put(ticker, new Active(positionStock.amount + amount, positionStock.value + value));
-			}else {//sale
-				double previousAverage = positionStock.value / positionStock.amount; 
-				double newAmount = positionStock.amount - amount;
-				stock.put(ticker, new Active(newAmount, previousAverage * newAmount));
+			if(type == TradeType.BUY) {
+				stock.put(ticker, new StockItem(stockItem.amount + amount, stockItem.value + value));
+			}else {
+				double previousAverage = stockItem.value / stockItem.amount; 
+				double newAmount = stockItem.amount - amount;
+				stock.put(ticker, new StockItem(newAmount, previousAverage * newAmount));
 			}
 			
 		}else {
-			stock.put(ticker, new Active(amount, value));
+			stock.put(ticker, new StockItem(amount, value));
 		}
+	}
+	
+	public double get(String ticker) {
+
+		if (!stock.containsKey(ticker)) return 0;
 		
-		Active position = stock.get(ticker);
+		StockItem stockItem = stock.get(ticker);
 		
-		double price  = 0;
-		
-		if (position.amount == 0 ) {
-			price = 0;
+		if (stockItem.amount == 0 && stockItem.value == 0) {
+			return 0;
 		}else {
-			price = position.value / position.amount;
+			return stockItem.value / stockItem.amount;
 		}
-		
-		return  price;
 	}
 	
 }
