@@ -19,17 +19,25 @@ public class CalculatedOperation {
 		List<Movimentation> movimentations = new ArrayList<>();
 		
 		double totalNote = getTotalNote();
+		AveragePrice averagePrice = new AveragePrice();
 		
 		for(NotaCorretagemDTODet det : note.getDetails()) {
 			
 			double totalTaxasNote = note.getTaxaLiquidacao() + note.getEmolumentos();
 			double relativeWeight = Math.abs(det.getPrecoAjuste()) / totalNote;
 			double totalTaxas = relativeWeight * totalTaxasNote;
-			double precoMedio = 0;
+			
+			TradeType tradeType = TradeType.get(det.getOperacao());
+			
+			double taxaOperacao = tradeType == TradeType.BUY ? totalTaxas : totalTaxas * -1.0;
+			double precoLiquido = det.getPrecoAjuste() + taxaOperacao;
+			
+			averagePrice.addMovimentation(tradeType, det.getEspecificacaoTitulo(), det.getQuantidade(), precoLiquido);
+			double precoMedio = averagePrice.get(det.getEspecificacaoTitulo())  ;
 			
 			Movimentation movimentation = Movimentation.builder()
 					.numero(note.getNumero())
-					.operacao(det.getOperacao())
+					.operacao(tradeType)
 					.mercado(det.getMercado())
 					.prazo(det.getPrazo())
 					.especificacaoTitulo(det.getEspecificacaoTitulo())

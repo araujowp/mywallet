@@ -13,4 +13,14 @@ public enum TradeType {
     public String getValue() {
         return value;
     }
+    
+    public static TradeType get(String value) {
+        for (TradeType type : TradeType.values()) {
+            if (type.value.equals(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("TradeType inválido para o valor: " + value);
+    }
+    
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Movimentation {
 
 	private String numero;
-	private String operacao;
+	private TradeType operacao;
 	private String mercado;
 	private String prazo;
 	private String especificacaoTitulo;
