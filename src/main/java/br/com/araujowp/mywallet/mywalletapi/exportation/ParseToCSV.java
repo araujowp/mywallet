@@ -18,7 +18,8 @@ public class ParseToCSV {
 		csvBuilder.append("Quantidade").append(";");
         csvBuilder.append("Preço Ajuste").append(";");
         csvBuilder.append("Valor operação").append(";");
-        csvBuilder.append("Total taxas").append("\n");
+        csvBuilder.append("Total taxas").append(";");
+        csvBuilder.append("Preco médio").append("\n");
         
         for(Movimentation movimentation : movimentations) {
         	
@@ -28,7 +29,8 @@ public class ParseToCSV {
         	csvBuilder.append(movimentation.getQuantidade()).append(";");
         	csvBuilder.append(movimentation.getPrecoAjuste()).append(";");
         	csvBuilder.append(movimentation.getValorOperacao()).append(";");
-        	csvBuilder.append(movimentation.getTotalTaxas()).append("\n");
+        	csvBuilder.append(movimentation.getTotalTaxas()).append(";");
+        	csvBuilder.append(movimentation.getPrecoMedio()).append("\n");
         }
         
 		return csvBuilder.toString();
