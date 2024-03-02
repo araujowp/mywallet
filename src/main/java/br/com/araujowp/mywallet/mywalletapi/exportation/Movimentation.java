@@ -1,5 +1,7 @@
 package br.com.araujowp.mywallet.mywalletapi.exportation;
 
+import java.time.LocalDate;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 public class Movimentation {
 
 	private String numero;
+	private LocalDate data;
 	private TradeType operacao;
 	private String mercado;
 	private String prazo;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTODet;
+import br.com.araujowp.mywallet.mywalletapi.importation.UtilDate;
 
 public class ParseToCSV {
 
@@ -13,6 +14,7 @@ public class ParseToCSV {
 		StringBuilder csvBuilder = new StringBuilder();
 		
 		csvBuilder.append("Numero").append(";");
+		csvBuilder.append("Data").append(";");
 		csvBuilder.append("Operacao").append(";");
 		csvBuilder.append("Especificação Titulo").append(";");
 		csvBuilder.append("Quantidade").append(";");
@@ -23,7 +25,10 @@ public class ParseToCSV {
         
         for(Movimentation movimentation : movimentations) {
         	
+        	String convertDate = UtilDate.toString(movimentation.getData());
+        	
         	csvBuilder.append(movimentation.getNumero()).append(";");
+        	csvBuilder.append(convertDate).append(";");
         	csvBuilder.append(movimentation.getOperacao()).append(";");
         	csvBuilder.append(movimentation.getEspecificacaoTitulo()).append(";");
         	csvBuilder.append(movimentation.getQuantidade()).append(";");

@@ -37,6 +37,7 @@ public class CalculatedOperation {
 			
 			Movimentation movimentation = Movimentation.builder()
 					.numero(note.getNumero())
+					.data(note.getDataPregao())
 					.operacao(tradeType)
 					.mercado(det.getMercado())
 					.prazo(det.getPrazo())
