@@ -27,7 +27,7 @@ public class Archive {
 				for (File arquivo : arquivos) {
 					if (!arquivo.isDirectory()) {
 						if (arquivo.getName().toLowerCase().endsWith("." + filter)) {
-							archiveNames.add(arquivo.getName());
+							archiveNames.add(arquivo.getAbsolutePath());
 						}
 					}
 				}

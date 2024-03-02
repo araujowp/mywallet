@@ -2,29 +2,69 @@ package br.com.araujowp.mywallet.mywalletapi.importation;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
+import br.com.araujowp.mywallet.mywalletapi.exportation.CalculatedOperation;
+import br.com.araujowp.mywallet.mywalletapi.exportation.Movimentation;
 import br.com.araujowp.mywallet.mywalletapi.exportation.ParseToCSV;
 
 public class ImportNotesPDF {
 
 	public static void main(String[] args) throws IOException {
 
-		String nota = "C:/teste/pdf/302500_NotaCorretagem-2018-12.pdf";
+		List<String> fileNames = findFiles();
+		List<NotaCorretagemDTO> notes = getNotes(fileNames);
+		List<Movimentation> movimentations = getMovimentations(notes);
+		makeCSV(movimentations);
+		
+	}
 
-		PDDocument document = PDDocument.load(new File(nota));
-
-		MakeNote makeNote = new MakeNote(document, new ClearLayout());
-		List<NotaCorretagemDTO> notas = makeNote.getNotes();
-
-		document.close();
-
+	private static void makeCSV(List<Movimentation> movimentations) {
+		
 		ParseToCSV parse = new ParseToCSV();
+		String strMovimentation = parse.parseMovimentations(movimentations);
+		Archive.saveTextToFile("c:/teste/movimentations.csv", strMovimentation);
+	}
 
-		System.out.println(parse.parseNotes(notas));
+	private static List<String> findFiles() {
+
+		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem");
+		return archive.getAchiveNames("pdf");
+	}
+
+	private static List<NotaCorretagemDTO> getNotes(List<String> fileNames) {
+
+		List<NotaCorretagemDTO> notes = new ArrayList<>();
+		for (String fileName : fileNames) {
+
+			PDDocument document;
+			try {
+				System.out.println("arquivo " + fileName);
+				document = PDDocument.load(new File(fileName));
+				MakeNote makeNote = new MakeNote(document, new ClearLayout());
+				notes = makeNote.getNotes();
+				document.close();
+			} catch (IOException e) {
+				System.out.println("fail to process " + fileName);
+				e.printStackTrace();
+			}
+		}
+		return notes;
+	}
+
+	private static List<Movimentation> getMovimentations(List<NotaCorretagemDTO> notes) {
+		
+		List<Movimentation> movimentations = new ArrayList<>();
+		for (NotaCorretagemDTO note : notes) {
+
+			CalculatedOperation calculation = new CalculatedOperation(note);
+			movimentations.addAll(calculation.builMovimentation());
+		}
+		return movimentations;
 	}
 
 }

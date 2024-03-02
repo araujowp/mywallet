@@ -70,9 +70,16 @@ public class MakeNote {
 			
 			long cliente = Long.valueOf(stripper.getTextForRegion(FileldsNote.CLIENTE.name()).trim());
 			
+			System.out.println("taxaLiquidacao - " + numero);
 			float taxaLiquidacao = getFloat(FileldsNote.TAXA_LIQUIDACAO);
+
+			System.out.println("taxaRegistro - " + numero);
 			float taxaRegistro  = getFloat(FileldsNote.TAXA_REGISTRO);
+			
+			System.out.println("emolumentos - " + numero);
 			float emolumentos = getFloat(FileldsNote.EMOLUMENTOS);
+			
+			System.out.println("irrf - " + numero);
 			float irrf = getFloat(FileldsNote.IRRF);
 			
 			NotaCorretagemDTO notaDTO = NotaCorretagemDTO.builder()
