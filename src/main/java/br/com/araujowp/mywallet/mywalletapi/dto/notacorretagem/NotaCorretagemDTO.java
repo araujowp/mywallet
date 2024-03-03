@@ -2,6 +2,7 @@ package br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import lombok.Builder;
@@ -36,7 +37,12 @@ public class NotaCorretagemDTO {
 		details = details == null ? new ArrayList<>() : details;
 		details.add(itemDet);
 	}
-	 
 
+	public void addDetail(List<NotaCorretagemDTODet> details) {
+		 for (Iterator<NotaCorretagemDTODet> iterator = details.iterator(); iterator.hasNext();) {
+			NotaCorretagemDTODet notaCorretagemDTODet = iterator.next();
+			addDetail(notaCorretagemDTODet);
+		}
+	}
 	
 }

@@ -58,7 +58,7 @@ public class CalculatedOperation {
 	}
 
 	private double getTotalNote() {
-		
+		System.out.println("getTotalNote" + note.getNumero() );
 		double totalNote = 0;
 		for(NotaCorretagemDTODet det : note.getDetails()) {
 			totalNote += det.getPrecoAjuste();
