@@ -33,7 +33,7 @@ public class ImportNotesPDF {
 	private static List<String> findFiles() {
 
 //		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem");
-		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\teste");
+		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\teste2");
 		return archive.getAchiveNames("pdf");
 	}
 
@@ -47,7 +47,7 @@ public class ImportNotesPDF {
 				System.out.println("arquivo " + fileName);
 				document = PDDocument.load(new File(fileName));
 				MakeNote makeNote = new MakeNote(document, new ClearLayout());
-				notes = makeNote.getNotes();
+				notes.addAll(makeNote.getNotes());
 				document.close();
 			} catch (IOException e) {
 				System.out.println("fail to process " + fileName);
