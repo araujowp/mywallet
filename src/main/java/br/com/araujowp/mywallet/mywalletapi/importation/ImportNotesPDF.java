@@ -11,6 +11,7 @@ import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO
 import br.com.araujowp.mywallet.mywalletapi.exportation.CalculatedOperation;
 import br.com.araujowp.mywallet.mywalletapi.exportation.Movimentation;
 import br.com.araujowp.mywallet.mywalletapi.exportation.ParseToCSV;
+import br.com.araujowp.mywallet.mywalletapi.util.SortNote;
 
 public class ImportNotesPDF {
 
@@ -18,7 +19,8 @@ public class ImportNotesPDF {
 
 		List<String> fileNames = findFiles();
 		List<NotaCorretagemDTO> notes = getNotes(fileNames);
-		List<Movimentation> movimentations = getMovimentations(notes);
+		List<NotaCorretagemDTO> sortNotes = new SortNote(notes).sort() ;
+		List<Movimentation> movimentations = getMovimentations(sortNotes);
 		makeCSV(movimentations);
 		
 	}

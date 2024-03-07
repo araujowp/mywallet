@@ -10,6 +10,7 @@ import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTODet;
+import br.com.araujowp.mywallet.mywalletapi.util.UtilDate;
 
 public class MakeNote {
 

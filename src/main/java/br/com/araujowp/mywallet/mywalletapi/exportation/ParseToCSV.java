@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTODet;
-import br.com.araujowp.mywallet.mywalletapi.importation.UtilDate;
+import br.com.araujowp.mywallet.mywalletapi.util.UtilDate;
 
 public class ParseToCSV {
 

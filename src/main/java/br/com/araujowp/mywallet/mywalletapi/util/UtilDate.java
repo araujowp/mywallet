@@ -1,4 +1,4 @@
-package br.com.araujowp.mywallet.mywalletapi.importation;
+package br.com.araujowp.mywallet.mywalletapi.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

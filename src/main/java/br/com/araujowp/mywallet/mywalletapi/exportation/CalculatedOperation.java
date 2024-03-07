@@ -58,13 +58,17 @@ public class CalculatedOperation {
 	}
 
 	private double getTotalNote() {
-		System.out.println("getTotalNote : " + note.getNumero() );
+
 		double totalNote = 0;
-		for(NotaCorretagemDTODet det : note.getDetails()) {
-			totalNote += det.getPrecoAjuste();
+		try {
+			for(NotaCorretagemDTODet det : note.getDetails()) {
+				totalNote += det.getPrecoAjuste();
+			}			
+		}catch(Exception e ) {
+			System.out.println("getTotalNote : " + note.getNomeArquivo() + " - " + note.getNumero() );
+			e.printStackTrace();
 		}
-		
 		return totalNote;
 	}
-	
+
 }
