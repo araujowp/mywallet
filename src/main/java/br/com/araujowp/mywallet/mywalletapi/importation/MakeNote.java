@@ -67,7 +67,7 @@ public class MakeNote {
 			stripper.extractRegions(document.getPage(pageNumber));
 
 			String numberNote = getString(FileldsNote.NUMERO.name());
-
+			
 			if (!previusNumberNote.endsWith(numberNote)) {
 				details = new ArrayList<>();
 			}
