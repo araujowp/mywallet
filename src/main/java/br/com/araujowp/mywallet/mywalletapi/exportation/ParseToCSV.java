@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTO;
 import br.com.araujowp.mywallet.mywalletapi.dto.notacorretagem.NotaCorretagemDTODet;
 import br.com.araujowp.mywallet.mywalletapi.util.UtilDate;
+import br.com.araujowp.mywallet.mywalletapi.util.UtilFormat;
 
 public class ParseToCSV {
 
@@ -13,6 +14,7 @@ public class ParseToCSV {
 		
 		StringBuilder csvBuilder = new StringBuilder();
 		
+		csvBuilder.append("Arquivo").append(";");
 		csvBuilder.append("Numero").append(";");
 		csvBuilder.append("Data").append(";");
 		csvBuilder.append("Operacao").append(";");
@@ -27,15 +29,16 @@ public class ParseToCSV {
         	
         	String convertDate = UtilDate.toString(movimentation.getData());
         	
+        	csvBuilder.append(movimentation.getNomeArquivo()).append(";");
         	csvBuilder.append(movimentation.getNumero()).append(";");
         	csvBuilder.append(convertDate).append(";");
         	csvBuilder.append(movimentation.getOperacao()).append(";");
         	csvBuilder.append(movimentation.getEspecificacaoTitulo()).append(";");
         	csvBuilder.append(movimentation.getQuantidade()).append(";");
-        	csvBuilder.append(movimentation.getPrecoAjuste()).append(";");
-        	csvBuilder.append(movimentation.getValorOperacao()).append(";");
-        	csvBuilder.append(movimentation.getTotalTaxas()).append(";");
-        	csvBuilder.append(movimentation.getPrecoMedio()).append("\n");
+        	csvBuilder.append(UtilFormat.toString(movimentation.getPrecoAjuste())).append(";");
+        	csvBuilder.append(UtilFormat.toString(movimentation.getValorOperacao())).append(";");
+        	csvBuilder.append(UtilFormat.toString(movimentation.getTotalTaxas())).append(";");
+        	csvBuilder.append(UtilFormat.toString(movimentation.getPrecoMedio())).append("\n");
         }
         
 		return csvBuilder.toString();

@@ -27,6 +27,7 @@ public class CalculatedOperation {
 			double relativeWeight = Math.abs(det.getPrecoAjuste()) / totalNote;
 			double totalTaxas = relativeWeight * totalTaxasNote;
 			
+			System.out.println("Trade type " + note.getNumero() + " - " + note.getNomeArquivo());
 			TradeType tradeType = TradeType.get(det.getOperacao());
 			
 			double taxaOperacao = tradeType == TradeType.BUY ? totalTaxas : totalTaxas * -1.0;
@@ -36,6 +37,7 @@ public class CalculatedOperation {
 			double precoMedio = averagePrice.get(det.getEspecificacaoTitulo())  ;
 			
 			Movimentation movimentation = Movimentation.builder()
+					.nomeArquivo(note.getNomeArquivo())
 					.numero(note.getNumero())
 					.data(note.getDataPregao())
 					.operacao(tradeType)

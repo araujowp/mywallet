@@ -54,9 +54,9 @@ public class ClearLayout {
 		
 		double y = 250 + (10 * rowNumber);
 		
-		detail.put(getName(FieldNoteDetail.OPERACAO, rowNumber), new Rectangle2D.Double(90, y, 15, 10));
+		detail.put(getName(FieldNoteDetail.OPERACAO, rowNumber), new Rectangle2D.Double(85, y, 17, 10));
 		detail.put(getName(FieldNoteDetail.MERCADO, rowNumber), new Rectangle2D.Double(110, y, 60, 10));
-		detail.put(getName(FieldNoteDetail.ESPECIFICACAO_TITULO, rowNumber), new Rectangle2D.Double(160, y, 130, 10));
+		detail.put(getName(FieldNoteDetail.ESPECIFICACAO_TITULO, rowNumber), new Rectangle2D.Double(175, y, 130, 10));
 		detail.put(getName(FieldNoteDetail.OBS, rowNumber), new Rectangle2D.Double(290, y, 60, 10));
 		detail.put(getName(FieldNoteDetail.QUANTIDADE, rowNumber), new Rectangle2D.Double(350, y, 60, 10));
 		detail.put(getName(FieldNoteDetail.PRECO_AJUSTE, rowNumber), new Rectangle2D.Double(410, y, 60, 10));

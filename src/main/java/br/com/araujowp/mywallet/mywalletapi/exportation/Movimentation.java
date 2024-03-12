@@ -11,6 +11,7 @@ import lombok.Setter;
 @Builder
 public class Movimentation {
 
+	private String nomeArquivo;
 	private String numero;
 	private LocalDate data;
 	private TradeType operacao;
@@ -24,6 +25,5 @@ public class Movimentation {
 	private String operacaoFinanceira;
 	private double totalTaxas;
 	private double precoMedio;
-	
 	
 }

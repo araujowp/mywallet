@@ -34,8 +34,7 @@ public class ImportNotesPDF {
 
 	private static List<String> findFiles() {
 
-		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem");
-//		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\teste2");
+		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem-antigas");
 		return archive.getAchiveNames("pdf");
 	}
 
@@ -46,16 +45,25 @@ public class ImportNotesPDF {
 
 			PDDocument document;
 			try {
-				System.out.println("arquivo " + fileName);
+				File file = new File(fileName);
+				System.out.println("arquivo " + file);
 				document = PDDocument.load(new File(fileName));
 				MakeNote makeNote = new MakeNote(document, new ClearLayout());
-				notes.addAll(makeNote.getNotes());
+				List<NotaCorretagemDTO> namedNotes = putFileName(makeNote.getNotes(), file.getName());
+				notes.addAll(namedNotes);
 				document.close();
 			} catch (IOException e) {
 				System.out.println("fail to process " + fileName);
 				e.printStackTrace();
 			}
 		}
+		return notes;
+	}
+
+	private static List<NotaCorretagemDTO> putFileName(List<NotaCorretagemDTO> notes, String name) {
+        for (NotaCorretagemDTO note : notes) {
+            note.setNomeArquivo(name);
+        }
 		return notes;
 	}
 

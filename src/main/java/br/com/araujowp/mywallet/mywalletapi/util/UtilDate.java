@@ -11,7 +11,7 @@ public class UtilDate {
 	}
 
 	public static String toString(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = date.format(formatter);
         return formattedDate;
 	}
