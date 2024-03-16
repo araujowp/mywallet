@@ -29,7 +29,7 @@ public class ParseToCSV {
         	
         	String convertDate = UtilDate.toString(movimentation.getData());
         	
-        	csvBuilder.append(movimentation.getNomeArquivo().replace(".PDF", "")).append(";");
+        	csvBuilder.append(movimentation.getNomeArquivo().replace(".pdf", "")).append(";");
         	csvBuilder.append(movimentation.getNumero()).append(";");
         	csvBuilder.append(convertDate).append(";");
         	csvBuilder.append(movimentation.getOperacao()).append(";");
