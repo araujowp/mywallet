@@ -29,12 +29,12 @@ public class ParseToCSV {
         	
         	String convertDate = UtilDate.toString(movimentation.getData());
         	
-        	csvBuilder.append(movimentation.getNomeArquivo()).append(";");
+        	csvBuilder.append(movimentation.getNomeArquivo().replace(".PDF", "")).append(";");
         	csvBuilder.append(movimentation.getNumero()).append(";");
         	csvBuilder.append(convertDate).append(";");
         	csvBuilder.append(movimentation.getOperacao()).append(";");
         	csvBuilder.append(movimentation.getEspecificacaoTitulo()).append(";");
-        	csvBuilder.append(movimentation.getQuantidade()).append(";");
+        	csvBuilder.append(UtilFormat.toString(movimentation.getQuantidade())).append(";");
         	csvBuilder.append(UtilFormat.toString(movimentation.getPrecoAjuste())).append(";");
         	csvBuilder.append(UtilFormat.toString(movimentation.getValorOperacao())).append(";");
         	csvBuilder.append(UtilFormat.toString(movimentation.getTotalTaxas())).append(";");

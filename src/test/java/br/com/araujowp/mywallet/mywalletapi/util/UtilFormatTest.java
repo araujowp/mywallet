@@ -32,6 +32,13 @@ public class UtilFormatTest {
         assertEquals("123.456.789,12", UtilFormat.toString(number));
     }
 
+    @Test
+    public void numberSmallerone() {
+    	double number  = 0.5;
+    	assertEquals("0,50", UtilFormat.toString(number));
+    }
+    
+    
 //    @Test
 //    public void testToStringWithSmallNumber() {
 //        double number = 0.00000123456789;
