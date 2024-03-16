@@ -14,15 +14,15 @@ public class TestMapping {
 	public static void main(String[] args) throws IOException {
 		
 //		String fileName  = "C:/my_file.pdf";
-		String fileName  = "C:/Users/NB-WAGNER-ARAUJO/Documents/declaracao/notas-corretagem/302500_NotaCorretagem-2020-01.pdf";
+		String fileName  = "C:/Users/NB-WAGNER-ARAUJO/Documents/declaracao/notas-corretagem-novas/XPINC_NOTA_NEGOCIACAO_B3_3_2023.pdf";
 		PDDocument document = PDDocument.load(new File(fileName));
 		
 		PDFTextStripperByArea stripper = new PDFTextStripperByArea();;
 		
 		double top  = 250;
-		stripper.addRegion(FieldNoteDetail.OPERACAO.name(), new Rectangle2D.Double(85, top, 17, 10));
+		stripper.addRegion(FieldNoteDetail.OPERACAO.name(), new Rectangle2D.Double(100, top, 15, 10));
 		stripper.addRegion(FieldNoteDetail.ESPECIFICACAO_TITULO.name(), new Rectangle2D.Double(175, top, 130, 10));
-		stripper.extractRegions(document.getPage(0));
+		stripper.extractRegions(document.getPage(1));
 		
 		String operacao = "";
 		String titulo = "";

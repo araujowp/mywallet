@@ -31,7 +31,7 @@ public class CalculatedOperation {
 			TradeType tradeType = TradeType.get(det.getOperacao());
 			
 			double taxaOperacao = tradeType == TradeType.BUY ? totalTaxas : totalTaxas * -1.0;
-			double precoLiquido = det.getPrecoAjuste() + taxaOperacao;
+			double precoLiquido = det.getValorOperacao() + taxaOperacao;
 			
 			averagePrice.addMovimentation(tradeType, det.getEspecificacaoTitulo(), det.getQuantidade(), precoLiquido);
 			double precoMedio = averagePrice.get(det.getEspecificacaoTitulo())  ;
