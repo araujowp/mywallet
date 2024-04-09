@@ -34,8 +34,7 @@ public class ImportNotesPDF {
 
 	private static List<String> findFiles() {
 		
-		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem-antigas");
-//		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\notas-corretagem-antigas");
+		Archive archive = new Archive("C:\\Users\\NB-WAGNER-ARAUJO\\Documents\\declaracao\\importar");
 		return archive.getAchiveNames("pdf");
 	}
 
